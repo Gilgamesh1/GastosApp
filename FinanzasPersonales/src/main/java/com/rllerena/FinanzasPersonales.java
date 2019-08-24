@@ -2,6 +2,7 @@ package com.rllerena;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +16,9 @@ public class FinanzasPersonales {
     public static final Logger LOGGER = LoggerFactory.getLogger(FinanzasPersonales.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(FinanzasPersonales.class, args);
+        SpringApplication application = new SpringApplication();
+        application.setBannerMode(Banner.Mode.OFF);
+        application.run(FinanzasPersonales.class);
     }
 
     @Bean
