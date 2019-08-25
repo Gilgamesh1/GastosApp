@@ -18,7 +18,7 @@ public class FinanzasPersonales {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication();
         application.setBannerMode(Banner.Mode.OFF);
-        application.run(FinanzasPersonales.class);
+        application.run(FinanzasPersonales.class, args);
     }
 
     @Bean
