@@ -17,7 +17,7 @@ public class BoletaController {
         return null;
     }
 
-    @PutMapping("/udpate/{id}")
+    @PutMapping("/update/{id}")
     public Boleta udpateBoleta(@PathVariable int id, @RequestBody Boleta Boleta) {
         return null;
     }

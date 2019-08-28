@@ -14,6 +14,7 @@ import java.util.Date;
 public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_categoria")
     private int id;
     private String descripcion;
     @Column(nullable = false)

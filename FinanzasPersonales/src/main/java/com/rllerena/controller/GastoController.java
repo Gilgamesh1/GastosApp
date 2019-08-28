@@ -17,7 +17,7 @@ public class GastoController {
         return null;
     }
 
-    @PutMapping("/udpate/{id}")
+    @PutMapping("/update/{id}")
     public Gasto udpateGasto(@PathVariable int id, @RequestBody Gasto gasto) {
         return null;
     }

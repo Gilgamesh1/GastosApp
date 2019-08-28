@@ -16,7 +16,7 @@ public class ArticuloController {
         return null;
     }
 
-    @PutMapping("/udpate/{id}")
+    @PutMapping("/update/{id}")
     public Articulo udpateArticulo(@PathVariable int id, @RequestBody Articulo Articulo) {
         return null;
     }

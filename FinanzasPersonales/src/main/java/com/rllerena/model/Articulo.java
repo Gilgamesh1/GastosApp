@@ -1,5 +1,6 @@
 package com.rllerena.model;
 
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,6 +25,8 @@ public class Articulo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    @ManyToOne
+    private Categoria categoria;
 
     public int getId() {
         return id;
@@ -41,6 +44,10 @@ public class Articulo implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -51,6 +58,14 @@ public class Articulo implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
