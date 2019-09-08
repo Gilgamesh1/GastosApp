@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
@@ -25,6 +26,8 @@ public class Categoria implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    @OneToMany(mappedBy = "categoria")
+    private Set<Articulo> articulos;
 
     public int getId() {
         return id;
@@ -42,6 +45,10 @@ public class Categoria implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -52,6 +59,14 @@ public class Categoria implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(Set<Articulo> articulos) {
+        this.articulos = articulos;
     }
 
     @Override

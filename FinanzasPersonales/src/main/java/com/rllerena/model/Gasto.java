@@ -23,6 +23,10 @@ public class Gasto implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    @JoinColumn(name = "idboleta_fk", nullable = true)
+    private Boleta boleta;
+    @JoinColumn(name = "idarticulo_fk", nullable = false)
+    private Articulo articulo;
 
     public int getId() {
         return id;
@@ -62,6 +66,22 @@ public class Gasto implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boleta getBoleta() {
+        return boleta;
+    }
+
+    public void setBoleta(Boleta boleta) {
+        this.boleta = boleta;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
     }
 
     @Override

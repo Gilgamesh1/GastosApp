@@ -1,14 +1,12 @@
 package com.rllerena.model;
 
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "articulo")
@@ -26,7 +24,10 @@ public class Articulo implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
     @ManyToOne
+    @JoinColumn(name = "idcategoria_fk", nullable = false)
     private Categoria categoria;
+    @OneToMany(mappedBy = "articulo")
+    private Set<Gasto> gastos;
 
     public int getId() {
         return id;
@@ -66,6 +67,14 @@ public class Articulo implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Set<Gasto> getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(Set<Gasto> gastos) {
+        this.gastos = gastos;
     }
 
     @Override

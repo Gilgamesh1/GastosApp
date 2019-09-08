@@ -1,14 +1,27 @@
 package com.rllerena.controller;
 
 import com.rllerena.model.Articulo;
+import com.rllerena.repository.ArticuloRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/articulo")
 public class ArticuloController {
-    @GetMapping(value = "/one")
-    public Articulo getArticulo() {
-        return new Articulo();
+    @Autowired
+    private ArticuloRepository articuloRepository;
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Articulo getArticulo(@PathVariable("id") int id) {
+        return articuloRepository.getOne(id);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Articulo> getAll() {
+        return articuloRepository.findAll();
     }
 
     @PostMapping("/create")

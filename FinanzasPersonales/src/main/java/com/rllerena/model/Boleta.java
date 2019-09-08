@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "boleta")
@@ -25,6 +26,8 @@ public class Boleta implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    @OneToMany(mappedBy = "boleta")
+    private Set<Gasto> gastos;
 
     public int getId() {
         return id;
@@ -72,6 +75,14 @@ public class Boleta implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Gasto> getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(Set<Gasto> gastos) {
+        this.gastos = gastos;
     }
 
     @Override

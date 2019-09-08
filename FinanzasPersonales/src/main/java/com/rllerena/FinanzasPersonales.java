@@ -16,9 +16,9 @@ public class FinanzasPersonales {
     public static final Logger LOGGER = LoggerFactory.getLogger(FinanzasPersonales.class);
 
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication();
+        SpringApplication application = new SpringApplication(FinanzasPersonales.class);
         application.setBannerMode(Banner.Mode.OFF);
-        application.run(FinanzasPersonales.class, args);
+        application.run( args);
     }
 
     @Bean

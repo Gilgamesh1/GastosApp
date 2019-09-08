@@ -4,22 +4,25 @@ import com.rllerena.exception.NotFoundException;
 import com.rllerena.model.Categoria;
 import com.rllerena.model.Gasto;
 import com.rllerena.repository.CategoriaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import javax.xml.ws.Response;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
-
-import static java.util.Optional.empty;
 
 @RestController
 @RequestMapping(value = "/categoria")
 public class CategoriaController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoriaController.class);
     @Autowired
     private CategoriaRepository categoriaRepository;
 
@@ -28,18 +31,27 @@ public class CategoriaController {
         return "Greetings from Spring Boot!";
     }
 
-    @GetMapping(value = "/one/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Categoria getCategoria(@PathVariable("id") int id) {
+        LOGGER.info("CategoriaController - getCategoria");
         return categoriaRepository.findById(id).orElseThrow(() -> new NotFoundException("Elemento no encontrado"));
     }
 
-    @PostMapping("/create")
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Categoria> findAll() {
+        LOGGER.info("CategoriaController - findAll");
+        return categoriaRepository.findAll();
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Categoria createCategoria(@RequestBody Categoria categoria) {
+        LOGGER.info("CategoriaController - createCategoria");
         return categoriaRepository.save(categoria);
     }
 
-    @PutMapping("/update/{id}")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public Categoria udpateCategoria(@PathVariable int id, @RequestBody Categoria categoria) {
+        LOGGER.info("CategoriaController - udpateCategoria");
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
         categoriaOptional.ifPresent(categoriaDb -> {
             categoriaDb.setDescripcion(categoria.getDescripcion());
@@ -49,8 +61,9 @@ public class CategoriaController {
         return null;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteCategoria(@PathVariable int id) {
+        LOGGER.info("CategoriaController - deleteCategoria");
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
         if (categoriaOptional.isPresent()) {
             categoriaRepository.delete(categoriaOptional.get());
