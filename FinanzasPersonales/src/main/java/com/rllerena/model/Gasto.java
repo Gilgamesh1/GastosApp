@@ -12,6 +12,7 @@ import java.util.Date;
 public class Gasto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_gasto")
     private int id;
     private Date fecha;
     private double gasto;

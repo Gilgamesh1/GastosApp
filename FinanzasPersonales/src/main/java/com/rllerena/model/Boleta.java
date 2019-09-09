@@ -14,6 +14,7 @@ import java.util.Set;
 public class Boleta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_boleta")
     private int id;
     private String serie;
     private String numero;

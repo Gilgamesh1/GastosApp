@@ -8,10 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -56,9 +58,14 @@ public class ArticuloController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteArticulo(@PathVariable int id) {
+    public ResponseEntity<?> deleteArticulo(@PathVariable int id) {
         LOGGER.info("ArticuloController - deleteArticulo");
-        Articulo articulo = articuloRepository.getOne(id);
-        articuloRepository.delete(articulo);
+        Optional<Articulo> articuloOptional = articuloRepository.findById(id);
+        if (articuloOptional.isPresent()) {
+            articuloRepository.delete(articuloOptional.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

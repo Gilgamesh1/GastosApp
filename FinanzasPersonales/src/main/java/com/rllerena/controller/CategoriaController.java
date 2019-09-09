@@ -62,7 +62,7 @@ public class CategoriaController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Categoria udpateCategoria(@PathVariable int id, @RequestBody Categoria categoria) {
+    public Categoria udpateCategoria(@PathVariable("id") int id, @RequestBody Categoria categoria) {
         LOGGER.info("CategoriaController - udpateCategoria");
         Optional<Categoria> categoriaOptional = categoriaRepository.findById(id);
         categoriaOptional.ifPresent(categoriaDb -> {
