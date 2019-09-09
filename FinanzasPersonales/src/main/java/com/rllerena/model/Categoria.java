@@ -1,13 +1,15 @@
 package com.rllerena.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "categoria")
@@ -26,8 +28,9 @@ public class Categoria implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
-    @OneToMany(mappedBy = "categoria")
-    private Set<Articulo> articulos;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
+    private List<Articulo> articulos;
 
     public int getId() {
         return id;
@@ -61,11 +64,14 @@ public class Categoria implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Articulo> getArticulos() {
+    public List<Articulo> getArticulos() {
         return articulos;
     }
 
-    public void setArticulos(Set<Articulo> articulos) {
+    public void setArticulos(List<Articulo> articulos) {
+        if (articulos == null) {
+            articulos = new ArrayList<Articulo>();
+        }
         this.articulos = articulos;
     }
 

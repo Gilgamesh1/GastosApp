@@ -1,5 +1,8 @@
 package com.rllerena.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -10,9 +13,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "articulo")
+@JsonIgnoreProperties(value = {"updatedAt", "createdAt"})
 public class Articulo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_articulo")
     private int id;
     private String descripcion;
     @Column(nullable = false)
@@ -25,9 +30,10 @@ public class Articulo implements Serializable {
     private Date updatedAt;
     @ManyToOne
     @JoinColumn(name = "idcategoria_fk", nullable = false)
+    @JsonBackReference
     private Categoria categoria;
-    @OneToMany(mappedBy = "articulo")
-    private Set<Gasto> gastos;
+//    @OneToMany(mappedBy = "articulo")
+//    private Set<Gasto> gastos;
 
     public int getId() {
         return id;
@@ -69,13 +75,13 @@ public class Articulo implements Serializable {
         this.categoria = categoria;
     }
 
-    public Set<Gasto> getGastos() {
-        return gastos;
-    }
-
-    public void setGastos(Set<Gasto> gastos) {
-        this.gastos = gastos;
-    }
+//    public Set<Gasto> getGastos() {
+//        return gastos;
+//    }
+//
+//    public void setGastos(Set<Gasto> gastos) {
+//        this.gastos = gastos;
+//    }
 
     @Override
     public String toString() {
