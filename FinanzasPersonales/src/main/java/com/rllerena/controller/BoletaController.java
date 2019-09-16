@@ -1,7 +1,6 @@
 package com.rllerena.controller;
 
 import com.rllerena.exception.NotFoundException;
-import com.rllerena.model.Articulo;
 import com.rllerena.model.Boleta;
 import com.rllerena.repository.BoletaRepository;
 import org.slf4j.Logger;
@@ -29,7 +28,8 @@ public class BoletaController {
         return boletaRepository.findById(id).orElseThrow(() -> new NotFoundException("No se encontraron datos"));
     }
 
-    @PostMapping("/create")
+    @RequestMapping(value = "/create",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<?> createBoleta(@RequestBody Boleta boleta) {
         LOGGER.info("BoletaController - createBoleta");
         Boleta boleta1 = new Boleta();
@@ -44,7 +44,8 @@ public class BoletaController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @RequestMapping(name = "/update/{id}", method = RequestMethod.PUT,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<?> udpateBoleta(@PathVariable("id") int id, @RequestBody Boleta boleta) {
         LOGGER.info("BoletaController - udpateBoleta");
         Optional<Boleta> boletaOptional = boletaRepository.findById(id);
@@ -59,7 +60,8 @@ public class BoletaController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @RequestMapping(name = "/delete/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public ResponseEntity<?> deleteBoleta(@PathVariable int id) {
         LOGGER.info("BoletaController - deleteBoleta");
         Optional<Boleta> boletaOptional = boletaRepository.findById(id);
