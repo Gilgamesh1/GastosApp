@@ -429,7 +429,20 @@
       <app-dado dado1="{{dado1}}" dado2="{{dado2}}" dado3="{{dado3}}"></app-dado>
       <p>Resultado: {{resultado}}</p>
   </div>
-
+  <div style="text-align:center">
+    <h1>Prueba de la componente cronometro</h1>
+    <app-cronometro inicio="15" (multiplo10)="actualizar($event)"></app-cronometro>
+    <h2>Evento</h2>
+    <h3>{{mensaje}}</h3>
+  </div>
+  <div>
+    <app-selectornumerico minimo="1" maximo="10" #selector1></app-selectornumerico>
+    <br>
+    <button (click)="selector1.fijar(1)">Fijar en 1</button><br>
+    <button (click)="selector1.fijar(5)">Fijar en 5</button><br>
+    <button (click)="selector1.fijar(10)">Fijar en 10</button>
+  </div>
+  
   <!-- Footer -->
   <footer>
       Love Angular?&nbsp;

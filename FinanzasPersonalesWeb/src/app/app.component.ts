@@ -103,4 +103,10 @@ export class AppComponent {
     else
       this.resultado='Perdió';
   }
+
+  mensaje='';
+
+  actualizar(t) {
+    this.mensaje = t + '(se actualiza cada 10 segundos)';
+  }
 }
