@@ -441,6 +441,15 @@
     <button (click)="selector1.fijar(1)">Fijar en 1</button><br>
     <button (click)="selector1.fijar(5)">Fijar en 5</button><br>
     <button (click)="selector1.fijar(10)">Fijar en 10</button>
+    <hr>
+    <app-selectornumerico2 minimo="1" maximo="10" #selector2></app-selectornumerico2>    
+    <br>
+    <button (click)="fijarSelector2(1)">Fijar en 1</button><br>
+    <button (click)="fijarSelector2(5)">Fijar en 5</button><br>
+    <button (click)="fijarSelector2(10)">Fijar en 10</button>  
+  </div>
+  <div>
+    <app-listadoarticulos [datos]="articulos"></app-listadoarticulos>
   </div>
   
   <!-- Footer -->

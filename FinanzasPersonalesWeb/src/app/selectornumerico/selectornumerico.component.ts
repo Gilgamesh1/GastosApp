@@ -17,16 +17,19 @@ actual:number;
   }
 
   incrementar(){
+    console.log("incrementar");
     if(this.actual<this.maximo)
       this.actual++;
   }
 
   decrementar(){
+    console.log("decrementar");
     if(this.actual>this.minimo)
       this.actual--;
   }
 
   fijar(v:number){
+    console.log("fijar");
     if(v>=this.minimo && v<=this.maximo)
       this.actual=v;
   }

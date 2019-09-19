@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Selectornumerico2Component } from './selectornumerico2/selectornumerico2.component';
+
 
 @Component({
   selector: 'app-root',
@@ -108,5 +110,11 @@ export class AppComponent {
 
   actualizar(t) {
     this.mensaje = t + '(se actualiza cada 10 segundos)';
+  }
+
+  @ViewChild('selector2', null) selector2: Selectornumerico2Component;
+
+  fijarSelector2(valor:number) {
+    this.selector2.fijar2(valor);
   }
 }
