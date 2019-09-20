@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Selectornumerico2Component } from './selectornumerico2/selectornumerico2.component';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -16,16 +16,32 @@ export class AppComponent {
   activo = true;
   sitio='http://www.google.com';
   contador=1;
-  art={codigo:null,
-  descripcion:null,
-  precio:null};
-
+  art={ codigo:null,
+        descripcion:null,
+        precio:null
+      };
   articulos=[{codigo:1, descripcion:'papas', precio:10.55},
-  {codigo:2, descripcion:'manzanas', precio:12.10},
-  {codigo:3, descripcion:'melon', precio:52.30},
-  {codigo:4, descripcion:'cebollas', precio:17},
-  {codigo:5, descripcion:'calabaza', precio:20},
+             {codigo:2, descripcion:'manzanas', precio:12.10},
+             {codigo:3, descripcion:'melon', precio:52.30},
+             {codigo:4, descripcion:'cebollas', precio:17},
+             {codigo:5, descripcion:'calabaza', precio:20},
   ];
+  private articulosJson=null;
+  
+  constructor(private http: HttpClient) { }
+  
+  ngOnInit() {
+   this.http.get('http://scratchya.com.ar/vue/datos.php')
+   .subscribe(
+     result=>{
+       this.articulosJson=result;
+     },
+     error=>{
+        console.log('problemas');
+     }    
+   );
+
+  }
 
   esActivo() {
     if (this.activo)

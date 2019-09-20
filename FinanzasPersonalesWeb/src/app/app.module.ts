@@ -8,6 +8,8 @@ import { CronometroComponent } from './cronometro/cronometro.component';
 import { SelectornumericoComponent } from './selectornumerico/selectornumerico.component';
 import { Selectornumerico2Component } from './selectornumerico2/selectornumerico2.component';
 import { ListadoarticulosComponent } from './listadoarticulos/listadoarticulos.component';
+import { ElementosModule } from './elementos/elementos.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ListadoarticulosComponent } from './listadoarticulos/listadoarticulos.c
     ListadoarticulosComponent
   ],
   imports: [
-    BrowserModule,FormsModule
+    BrowserModule,FormsModule,
+    ElementosModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
