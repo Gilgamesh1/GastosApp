@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { DadoComponent } from './dado/dado.component';
@@ -25,8 +26,9 @@ import { AcercadeComponent } from './acercade/acercade.component';
     AcercadeComponent
   ],
   imports: [
-    BrowserModule,FormsModule,
-    ElementosModule, HttpClientModule
+    BrowserModule, FormsModule,
+    ElementosModule, HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
