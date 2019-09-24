@@ -1,45 +1,50 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Selectornumerico2Component } from './selectornumerico2/selectornumerico2.component';
 import { HttpClient } from '@angular/common/http';
+import { ArticulosService } from './articulos.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'FinanzasPersonalesWeb';
   nombre = 'Rodriguez Pablo';
   edad = 7;
   email = 'rpablo@gmail.com';
   sueldos = [1700, 1600, 1900];
   activo = true;
-  sitio='http://www.google.com';
-  contador=1;
-  art={ codigo:null,
-        descripcion:null,
-        precio:null
-      };
-  articulos=[{codigo:1, descripcion:'papas', precio:10.55},
-             {codigo:2, descripcion:'manzanas', precio:12.10},
-             {codigo:3, descripcion:'melon', precio:52.30},
-             {codigo:4, descripcion:'cebollas', precio:17},
-             {codigo:5, descripcion:'calabaza', precio:20},
+  sitio = 'http://www.google.com';
+  contador = 1;
+  art = {
+    codigo: null,
+    descripcion: null,
+    precio: null
+  };
+  articulos = [{ codigo: 1, descripcion: 'papas', precio: 10.55 },
+  { codigo: 2, descripcion: 'manzanas', precio: 12.10 },
+  { codigo: 3, descripcion: 'melon', precio: 52.30 },
+  { codigo: 4, descripcion: 'cebollas', precio: 17 },
+  { codigo: 5, descripcion: 'calabaza', precio: 20 },
   ];
-  private articulosJson=null;
-  
-  constructor(private http: HttpClient) { }
-  
+  articulosDesdeServicio = null;
+  private articulosJson = null;
+
+  constructor(private http: HttpClient,
+    private articulosServicio: ArticulosService) { }
+
   ngOnInit() {
-   this.http.get('http://scratchya.com.ar/vue/datos.php')
-   .subscribe(
-     result=>{
-       this.articulosJson=result;
-     },
-     error=>{
-        console.log('problemas');
-     }    
-   );
+    this.articulosDesdeServicio = this.articulosServicio.retornar();
+    this.http.get('http://scratchya.com.ar/vue/datos.php')
+      .subscribe(
+        result => {
+          this.articulosJson = result;
+        },
+        error => {
+          console.log('problemas');
+        }
+      );
 
   }
 
@@ -51,78 +56,80 @@ export class AppComponent {
   }
 
   ultimos3Sueldos() {
-    let suma=0;
-    for(let x=0; x<this.sueldos.length; x++)
-      suma+=this.sueldos[x];
+    let suma = 0;
+    for (let x = 0; x < this.sueldos.length; x++)
+      suma += this.sueldos[x];
     return suma;
   }
-  incrementar(){
+  incrementar() {
     this.contador++;
   }
-  decrementar(){
+  decrementar() {
     this.contador--;
   }
 
-  hayElementos(){
-    return this.articulos.length<=0?false:true;
+  hayElementos() {
+    return this.articulos.length <= 0 ? false : true;
   }
 
-  borrar(art){
-    for(let x=0;x<this.articulos.length;x++){
-      if(this.articulos[x].codigo==art.codigo){
-        this.articulos.splice(x,1);
+  borrar(art) {
+    for (let x = 0; x < this.articulos.length; x++) {
+      if (this.articulos[x].codigo == art.codigo) {
+        this.articulos.splice(x, 1);
         return;
       }
     }
   }
 
-  agregar(){
-    for(let x=0;x<this.articulos.length;x++){
-      if(this.articulos[x].codigo==this.art.codigo){
+  agregar() {
+    for (let x = 0; x < this.articulos.length; x++) {
+      if (this.articulos[x].codigo == this.art.codigo) {
         alert("ya existe un articulo con este codigo");
         return;
       }
     }
-    this.articulos.push({codigo:this.art.codigo,
-      descripcion:this.art.descripcion,precio:this.art.precio});
-    this.art.codigo=null;
-    this.art.descripcion=null;
-    this.art.precio=null;
+    this.articulos.push({
+      codigo: this.art.codigo,
+      descripcion: this.art.descripcion, precio: this.art.precio
+    });
+    this.art.codigo = null;
+    this.art.descripcion = null;
+    this.art.precio = null;
   }
 
-  seleccionar(art){
-    this.art.codigo=art.codigo;
-    this.art.descripcion=art.descripcion;
-    this.art.precio=art.precio;
+  seleccionar(art) {
+    this.art.codigo = art.codigo;
+    this.art.descripcion = art.descripcion;
+    this.art.precio = art.precio;
   }
 
-  modificar(art){
-    for(let x=0;x<this.articulos.length;x++){
-      if(this.articulos[x].codigo==art.codigo){
-        this.articulos[x].codigo=art.codigo;
-        this.articulos[x].descripcion=art.descripcion;
-        this.articulos[x].precio=art.precio;
+  modificar(art) {
+    for (let x = 0; x < this.articulos.length; x++) {
+      if (this.articulos[x].codigo == art.codigo) {
+        this.articulos[x].codigo = art.codigo;
+        this.articulos[x].descripcion = art.descripcion;
+        this.articulos[x].precio = art.precio;
         return;
       }
     }
     alert('No existe el código de articulo ingresado');
   }
 
-  dado1:number;
-  dado2:number;
-  dado3:number;
-  resultado:string;
-  girar(){
-    this.dado1=Math.trunc(Math.random()*6);
-    this.dado2=Math.trunc(Math.random()*6);
-    this.dado3=Math.trunc(Math.random()*6);
-    if (this.dado1==this.dado2 && this.dado1==this.dado3)    
-      this.resultado='Ganó';
+  dado1: number;
+  dado2: number;
+  dado3: number;
+  resultado: string;
+  girar() {
+    this.dado1 = Math.trunc(Math.random() * 6);
+    this.dado2 = Math.trunc(Math.random() * 6);
+    this.dado3 = Math.trunc(Math.random() * 6);
+    if (this.dado1 == this.dado2 && this.dado1 == this.dado3)
+      this.resultado = 'Ganó';
     else
-      this.resultado='Perdió';
+      this.resultado = 'Perdió';
   }
 
-  mensaje='';
+  mensaje = '';
 
   actualizar(t) {
     this.mensaje = t + '(se actualiza cada 10 segundos)';
@@ -130,7 +137,7 @@ export class AppComponent {
 
   @ViewChild('selector2', null) selector2: Selectornumerico2Component;
 
-  fijarSelector2(valor:number) {
+  fijarSelector2(valor: number) {
     this.selector2.fijar2(valor);
   }
 }
