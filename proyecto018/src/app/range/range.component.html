@@ -1,0 +1,6 @@
+<div class="contenedor">
+    <mat-slider [(ngModel)]="slider1" thumbLabel (change)="cambiar()" step="step" min="1" max="200"></mat-slider>
+    <mat-slider [(ngModel)]="slider2" thumbLabel (change)="cambiar()" step="step" min="1" max="200"></mat-slider>
+    <mat-slider [(ngModel)]="slider3" thumbLabel (change)="cambiar()" step="step" min="1" max="200"></mat-slider>
+    La suma de los tres slider: {{suma}}
+</div>
